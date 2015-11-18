@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Multitest
+        psr4_prefix: Multitest
+        src_path: app
