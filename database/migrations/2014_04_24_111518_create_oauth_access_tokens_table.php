@@ -31,6 +31,7 @@ class CreateOauthAccessTokensTable extends Migration
             $table->string('id', 40)->primary();
             $table->integer('session_id')->unsigned();
             $table->integer('expire_time');
+            $table->string('grant_type');
 
             $table->timestamps();
 

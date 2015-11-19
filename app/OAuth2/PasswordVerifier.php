@@ -14,7 +14,7 @@ class PasswordVerifier
             'password' => $password,
         ];
 
-        dd('password verifier');
+        #dd('password verifier');
         if (Auth::once($credentials)) {
             return Auth::user()->id;
         }

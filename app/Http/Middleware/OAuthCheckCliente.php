@@ -3,6 +3,7 @@
 namespace Multitest\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\DB;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 use Multitest\Repositories\ClienteRepository;
 
@@ -30,14 +31,19 @@ class OAuthCheckCliente
      */
     public function handle($request, Closure $next)
     {
-        dd(Authorizer::getResourceOwnerType());
-        $id = Authorizer::getResourceOwnerId();
-        $user = $this->clienteRepository->find($id);
 
-        #dd('asd');
-        #dd(Authorizer::getResourceOwnerType());
-        dd($id);
-        if(!$user){
+        $checker = Authorizer::getChecker();
+        $accessToken = $checker->getAccessToken();
+
+        dd($checker);
+        dd($accessToken);
+        $accessTokenEntity = DB::table('oauth_access_tokens')->where('id', $accessToken)
+            ->first();
+        dd($accessToken);
+        $grantType = $accessTokenEntity->grant_type;
+
+        dd($grantType);
+        if($grantType != 'cliente'){
             abort(403, 'Access forbidden');
         }
 

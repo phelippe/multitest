@@ -16,7 +16,14 @@ Route::get('/', function () {
 });
 
 Route::post('oauth/access_token', function () {
-    return Response::json(Authorizer::issueAccessToken());
+    $grantType = Authorizer:: getIssuer()->getRequest()->get('grant_type');
+    $accessToken = Authorizer::issueAccessToken();
+
+    DB::table('oauth_access_tokens')
+        ->where('id', $accessToken['access_token'])
+        ->update(['grant_type' => $grantType]);
+
+    return Response::json($accessToken);
 });
 
 Route::group(['prefix' => 'api/cliente', 'middleware'=>'oauth.check.cliente', 'as' => 'api.'], function () {

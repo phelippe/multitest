@@ -29,11 +29,11 @@ return [
 
     'grant_types' => [
 
-        'password' => [
+        /*'password' => [
             'class' => '\League\OAuth2\Server\Grant\PasswordGrant',
             'callback' => '\Multitest\OAuth2\PasswordVerifier@verify',
             'access_token_ttl' => 3600
-        ],
+        ],*/
 
         'motorista' => [
             #'class' => '\League\OAuth2\Server\Grant\PasswordGrant',
