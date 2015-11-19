@@ -35,7 +35,7 @@ class OAuthCheckCliente
         $checker = Authorizer::getChecker();
         $accessToken = $checker->getAccessToken();
 
-        dd($checker);
+        #dd($checker);
         dd($accessToken);
         $accessTokenEntity = DB::table('oauth_access_tokens')->where('id', $accessToken)
             ->first();
