@@ -3,6 +3,7 @@
 namespace Multitest\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\DB;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 use Multitest\Repositories\MotoristaRepository;
 
@@ -30,14 +31,24 @@ class OAuthCheckMotorista
      */
     public function handle($request, Closure $next)
     {
-        $id = Authorizer::getResourceOwnerId();
-        $user = $this->motoristaRepository->find($id);
+        /*dd(Authorizer::validateAccessToken(),
+            Authorizer::getResourceOwnerId(),
+            Authorizer::getResourceOwnerType(),
+            Authorizer::getAccessToken());*/
 
+        $validado = Authorizer::validateAccessToken();
 
-        dd($id, $user);
-        /*if($user->role != $role){
+        $checker = Authorizer::getChecker();
+        $accessToken = $checker->getAccessToken();
+
+        $accessTokenEntity = DB::table('oauth_access_tokens')->where('id', $accessToken)
+            ->first();
+
+        $grantType = ($accessTokenEntity->grant_type ? $accessTokenEntity->grant_type : null);
+
+        if($grantType != 'motorista'){
             abort(403, 'Access forbidden');
-        }*/
+        }
 
         return $next($request);
     }

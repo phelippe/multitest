@@ -22,6 +22,10 @@ class ClientePasswordVerifier
             return Auth::cliente()->get()->id;
         }
 
+        /*if (Auth::once($credentials)) {
+            return Auth::user()->id;
+        }*/
+
         return false;
     }
 }
