@@ -12,10 +12,10 @@ return [
             'model' => Multitest\Entities\Motorista::class,
         ],
         'cliente' => [
-            /*'driver' => 'eloquent',
-            'model' => Multitest\Entities\Cliente::class,*/
-            'driver' => 'database',
-            'table' => 'clientes',
+            'driver' => 'eloquent',
+            'model' => Multitest\Entities\Cliente::class,
+            #'driver' => 'database',
+            #'table' => 'clientes',
         ],
     ],
 
